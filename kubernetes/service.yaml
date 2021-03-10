@@ -1,10 +1,10 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: helloworld_k8s
+  name: helloworldtest
 spec:
   selector:
-    app: helloworld_k8s
+    app: helloworldtest
   ports:
   - protocol: TCP
     port: 7080
