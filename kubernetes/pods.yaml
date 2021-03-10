@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: helloworld_k8s
+  name: helloworldtest
   labels:
-    app: helloworld_k8s
+    app: helloworldtest
 spec:
   containers:
-    - name: k8s_tomcat
+    - name: helloworldtest
       image: helloworld:1.0
       ports:
         - containerPort: 7080
