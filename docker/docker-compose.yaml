@@ -1,0 +1,35 @@
+services:
+    sonarqube:
+       image: sonarqube:7.9.2-community
+       container_name: sonar-container
+       restart: always
+       environment:
+           - SONARQUBE_JDBC_USERNAME=sonar
+           - SONARQUBE_JDBC_PASSWORD=your-strong-password-here
+           - SONARQUBE_JDBC_URL=jdbc:postgresql://postgressdb:5432/sonarqube
+       ports:
+       - "9000:9000"
+       - "9092:9092"
+       volumes:
+       - '/Users/pr369700/Documents/personal/sonar/sonarqube_conf:/opt/sonarqube/conf'
+       - '/Users/pr369700/Documents/personal/sonar/sonarqube_data:/opt/sonarqube/data'
+       - '/Users/pr369700/Documents/personal/sonar/sonarqube_extensions:/opt/sonarqube/extensions'
+       - '/Users/pr369700/Documents/personal/sonar/sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins'
+    postgressdb:
+       image: postgres:12.1
+       container_name: postgres-container
+       restart: always
+       environment:
+           - POSTGRES_USER=sonar
+           - POSTGRES_PASSWORD=your-strong-password-here
+           - POSTGRES_DB=sonarqube
+       volumes:
+       - '/Users/pr369700/Documents/personal/postgresql/sonarqube_db:/var/lib/postgresql'
+       - '/Users/pr369700/Documents/personal/postgresql/postgresql_data:/var/lib/postgresql/data'
+    nexus:
+       image: sonatype/nexus3
+       container_name: nexus
+       volumes:
+       - '/Users/pr369700/Documents/personal/nexus/nexus-data:/sonatype-work'
+       ports:
+       - "8090:8081"
