@@ -33,7 +33,7 @@ pipeline{
                 }
             }
         }
-        stage('Deploy'){
+        stage('Deploy using Docker'){
             steps{
                 script{
                     sh ''' wget --user=admin --password=admin123 http://localhost:8090/repository/jenkinstest/org/javahelloworldwebapp/java-hello-world-webapp/1.0.0/java-hello-world-webapp-1.0.0.war
@@ -44,12 +44,21 @@ pipeline{
                     docker build -t helloworld:1.0 .
                     docker run -d -p 11080:8080 --name helloworld helloworld:1.0
                     docker container ls
-                '''
-                    sh 'cd ../kubernetes'
+                    '''
+                }
+            }
+        }
+        stage('Deploy using K8s'){
+            steps{
+                script{
                     try{
-                        sh "kubectl apply -f demployment.yml pods.yml service.yml"
+                        sh '''cd ${WORKSPACE}/kubernetes/
+                        kubectl apply -f .
+                        '''
                     }catch(error){
-                        sh "kubectl create -f demployment.yml pods.yml service.yml"
+                        sh '''cd ${WORKSPACE}/kubernetes/
+                        kubectl create -f .
+                        '''
                     }
                 }
             }
