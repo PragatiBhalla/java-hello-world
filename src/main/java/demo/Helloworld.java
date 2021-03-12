@@ -1,9 +1,12 @@
 package demo;
 
-public class Helloworld {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+public class Helloworld {
+	private static final Logger logger = LoggerFactory.getLogger(Helloworld.class);
 	public static boolean main(final String[] args) {
-		System.out.println("Hello, World!!");
+		logger.log("Hello, World!!");
 		return true;
 	}
 
