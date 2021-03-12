@@ -11,6 +11,11 @@ pipeline{
                 sh script: 'mvn clean install'
             }
         }
+        stage('Code Analysis'){
+            steps{
+                sh script: 'mvn clean install sonar:sonar'
+            }
+        }
         stage('Publish'){
             steps{
                 script{
@@ -36,7 +41,7 @@ pipeline{
         stage('Deploy using Docker'){
             steps{
                 script{
-                    sh ''' wget --user=admin --password=admin123 http://localhost:8090/repository/jenkinstest/org/javahelloworldwebapp/java-hello-world-webapp/1.0.0/java-hello-world-webapp-1.0.0.war
+                    sh ''' wget -N --user=admin --password=admin123 http://localhost:8090/repository/jenkinstest/org/javahelloworldwebapp/java-hello-world-webapp/1.0.0/java-hello-world-webapp-1.0.0.war
                     /bin/cp java-hello-world-webapp-1.0.0.war ${WORKSPACE}/docker/
                     docker container ls
                     '''
