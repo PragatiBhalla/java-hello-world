@@ -9,7 +9,7 @@ public class Helloworld {
 		logger.log("Hello, World!!");
 		return true;
 	}
-	private Helloworld {
+	private Helloworld() {
 		//sonarfix
 	}
 
