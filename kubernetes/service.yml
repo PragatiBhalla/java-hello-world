@@ -4,9 +4,10 @@ metadata:
   name: helloworldtest
 spec:
   selector:
-    app: helloworld-deployment
+    app: helloworldtest
   ports:
   - protocol: TCP
     port: 7080
     targetPort: 7080
+    nodePort: 30008
   type: NodePort
