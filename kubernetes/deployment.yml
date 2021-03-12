@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: helloworld-deployment
+  name: helloworldtest
   labels:
-    app: helloworld-deployment
+    app: helloworldtest
 spec:
   replicas: 3
   selector:
