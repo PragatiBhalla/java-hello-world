@@ -37,14 +37,22 @@ pipeline{
             steps{
                 script{
                     sh ''' wget --user=admin --password=admin123 http://localhost:8090/repository/jenkinstest/org/javahelloworldwebapp/java-hello-world-webapp/1.0.0/java-hello-world-webapp-1.0.0.war
-                    docker container stop helloworld
-                    docker container rm helloworld
                     /bin/cp java-hello-world-webapp-1.0.0.war ${WORKSPACE}/docker/
-                    cd ${WORKSPACE}/docker/
-                    docker build -t helloworld:1.0 .
-                    docker run -d -p 11080:8080 --name helloworld helloworld:1.0
                     docker container ls
                     '''
+                    try{
+                        sh ''' docker container stop helloworld
+                        docker container rm helloworld
+                        cd ${WORKSPACE}/docker/
+                        docker build -t helloworld:1.0 .
+                        docker run -d -p 11080:8080 --name helloworld helloworld:1.0
+                        '''
+                    }catch(error){
+                        sh '''cd ${WORKSPACE}/docker/
+                        docker build -t helloworld:1.0 .
+                        docker run -d -p 11080:8080 --name helloworld helloworld:1.0
+                        '''
+                    }
                 }
             }
         }
