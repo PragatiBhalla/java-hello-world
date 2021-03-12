@@ -9,8 +9,5 @@ public class Helloworld {
 		logger.info("Hello, World!!");
 		return true;
 	}
-	private Helloworld() {
-		//sonarfix
-	}
 
 }
