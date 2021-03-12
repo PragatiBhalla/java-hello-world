@@ -4,7 +4,7 @@ metadata:
   name: helloworldtest
 spec:
   selector:
-    app: helloworldtest
+    app: helloworld-deployment
   ports:
   - protocol: TCP
     port: 7080
