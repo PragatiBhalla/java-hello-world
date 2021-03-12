@@ -9,8 +9,7 @@ public class HelloworldTest {
 	@Test
 	public void test() {
 		Helloworld helloworld = new Helloworld();
-		String[] args = null;
-		assertTrue(helloworld.main(args));
+		assertTrue(helloworld.main());
 	}
 
 }
