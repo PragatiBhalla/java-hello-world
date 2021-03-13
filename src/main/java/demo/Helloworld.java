@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 public class Helloworld {
 	private static final Logger logger = LoggerFactory.getLogger(Helloworld.class);
 	public boolean main() {
-		logger.info("Hello, World!!-new");
+		logger.info("Hello, World!!-1.0.3 version");
 		return true;
 	}
 
