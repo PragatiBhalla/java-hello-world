@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: helloworldtest
-        image: helloworld:1.0
+        image: helloworld:1.0.3
         ports:
         - containerPort: 8080
