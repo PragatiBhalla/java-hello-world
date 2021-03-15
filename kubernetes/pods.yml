@@ -7,6 +7,6 @@ metadata:
 spec:
   containers:
     - name: helloworldtest
-      image: helloworld:1.0.3
+      image: helloworld:1.0.4
       ports:
         - containerPort: 8080
