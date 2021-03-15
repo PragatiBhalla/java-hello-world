@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+def pom
 pipeline{
     agent any
     stages{
@@ -19,7 +21,7 @@ pipeline{
         stage('Publish'){
             steps{
                 script{
-                def pom = readMavenPom file: 'pom.xml'
+                pom = readMavenPom file: 'pom.xml'
                 nexusArtifactUploader artifacts: [
                     [
                         artifactId: "${pom.artifactId}",
@@ -41,22 +43,15 @@ pipeline{
         stage('Deploy using Docker'){
             steps{
                 script{
-                    sh ''' wget -N --user=admin --password=admin123 http://localhost:8090/repository/jenkinstest/org/javahelloworldwebapp/java-hello-world-webapp/1.0.0/java-hello-world-webapp-1.0.0.war
-                    /bin/cp java-hello-world-webapp-1.0.0.war ${WORKSPACE}/docker/
-                    docker container ls
-                    '''
+                    sh(returnStatus: true, script: "wget -N --user=admin --password=admin123 http://localhost:8090/repository/jenkinstest/org/javahelloworldwebapp/${pom.artifactId}/${pom.version}/${pom.artifactId}-${pom.version}.${pom.packaging} && /bin/cp ${pom.artifactId}-${pom.version}.${pom.packaging} ${WORKSPACE}/docker/")
+                    sh 'docker container ls'
                     try{
                         sh ''' docker container stop helloworld
                         docker container rm helloworld
-                        cd ${WORKSPACE}/docker/
-                        docker build -t helloworld:1.0 .
-                        docker run -d -p 11080:8080 --name helloworld helloworld:1.0
                         '''
+                        sh(returnStatus: true, script: "cd ${WORKSPACE}/docker/ && docker build -t helloworld:${pom.version} . && docker run -d -p 11080:8080 --env version=${pom.version} --name helloworld helloworld:${pom.version}")
                     }catch(error){
-                        sh '''cd ${WORKSPACE}/docker/
-                        docker build -t helloworld:1.0 .
-                        docker run -d -p 11080:8080 --name helloworld helloworld:1.0
-                        '''
+                        sh(returnStatus: true, script: "cd ${WORKSPACE}/docker/ && docker build -t helloworld:${pom.version} . && docker run -d -p 11080:8080 --env version=${pom.version} --name helloworld helloworld:${pom.version}")
                     }
                 }
             }
