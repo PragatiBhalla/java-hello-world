@@ -8,7 +8,7 @@
   <groupId>org.javahelloworldwebapp</groupId>
   <artifactId>java-hello-world-webapp</artifactId>
   <packaging>war</packaging>
-  <version>1.0.4</version>
+  <version>1.0.5</version>
   <name>java-hello-world-webapp-maven-webapp</name>
 
   <url>https://repo.maven.apache.org/maven2</url>
@@ -48,7 +48,7 @@
      <sonar.sources>pom.xml,src/main/java</sonar.sources>
   </properties>
   <build>
-    <finalName>java-hello-world-webapp-1.0.4</finalName>
+    <finalName>java-hello-world-webapp-1.0.5</finalName>
     <pluginManagement>
       <plugins>
         <plugin>
