@@ -49,9 +49,9 @@ pipeline{
                         sh ''' docker container stop helloworld
                         docker container rm helloworld
                         '''
-                        sh(returnStatus: true, script: "cd ${WORKSPACE}/docker/ && docker build --env version=${pom.version} -t helloworld:${pom.version} . && docker run -d -p 11080:8080 --env version=${pom.version} --name helloworld helloworld:${pom.version}")
+                        sh(returnStatus: true, script: "cd ${WORKSPACE}/docker/ && docker build --build-arg version=${pom.version} -t helloworld:${pom.version} . && docker run -d -p 11080:8080 --env version=${pom.version} --name helloworld helloworld:${pom.version}")
                     }catch(error){
-                        sh(returnStatus: true, script: "cd ${WORKSPACE}/docker/ && docker build --env version=${pom.version} -t helloworld:${pom.version} . && docker run -d -p 11080:8080 --env version=${pom.version} --name helloworld helloworld:${pom.version}")
+                        sh(returnStatus: true, script: "cd ${WORKSPACE}/docker/ && docker build --build-arg version=${pom.version} -t helloworld:${pom.version} . && docker run -d -p 11080:8080 --env version=${pom.version} --name helloworld helloworld:${pom.version}")
                     }
                 }
             }
